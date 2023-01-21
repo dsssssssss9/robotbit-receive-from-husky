@@ -6,13 +6,16 @@ radio.onReceivedNumber(function (receivedNumber) {
         AllFwd()
     } else if (Command == 2) {
         Servo()
+    } else if (Command == 3) {
+        strip.showColor(neopixel.colors(NeoPixelColors.Red))
+        basic.pause(1000)
+        strip.clear()
+    } else {
+    	
     }
 })
 input.onButtonPressed(Button.A, function () {
     AllFwd()
-})
-input.onButtonPressed(Button.B, function () {
-    Servo()
 })
 function AllFwd () {
     robotbit.MotorRun(robotbit.Motors.M1A, 100)
@@ -27,11 +30,15 @@ function Servo () {
     basic.pause(2000)
     robotbit.Servo(robotbit.Servos.S1, 0)
 }
+input.onButtonPressed(Button.B, function () {
+    Servo()
+})
+let strip: neopixel.Strip = null
 let Command = 0
 radio.setGroup(1)
 Command = 0
-basic.showIcon(IconNames.Yes)
-let strip = neopixel.create(DigitalPin.P16, 4, NeoPixelMode.RGB)
+basic.showIcon(IconNames.Happy)
+strip = neopixel.create(DigitalPin.P16, 4, NeoPixelMode.RGB)
 strip.setBrightness(8)
 strip.showColor(neopixel.colors(NeoPixelColors.Green))
 robotbit.MotorStopAll()
